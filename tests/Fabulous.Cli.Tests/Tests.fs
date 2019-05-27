@@ -6,7 +6,7 @@ open FsUnit
 open FSharp.Compiler.PortaCode.Tests.Basic// for TestHelpers
 
 module Versions = 
-    let XamarinForms = "3.4.0.1009999"
+    let XamarinForms = "4.0.0.425677"
     let NewtonsoftJson = "11.0.2"
 
 [<TestClass>]
@@ -32,13 +32,13 @@ type TestClass () =
 
     [<Test>]
     member this.TestCanEvaluateCounterApp () =
-        Environment.CurrentDirectory <- __SOURCE_DIRECTORY__ + "/../../Samples/CounterApp/CounterApp"
+        Environment.CurrentDirectory <- __SOURCE_DIRECTORY__ + "/../../samples/CounterApp/CounterApp"
         TestHelpers.createNetStandardProjectArgs "CounterApp"  elmishExtraRefs
         Assert.AreEqual(0, FSharpDaemon.Driver.main( [| "dummy.exe"; "--eval"; "@CounterApp.args.txt" |]))
 
     [<Test>]
     member this.TestCanEvaluateTicTacToeApp () =
-        Environment.CurrentDirectory <- __SOURCE_DIRECTORY__ + "/../../Samples/TicTacToe/TicTacToe"
+        Environment.CurrentDirectory <- __SOURCE_DIRECTORY__ + "/../../samples/TicTacToe/TicTacToe"
         TestHelpers.createNetStandardProjectArgs "TicTacToe" elmishExtraRefs
         Assert.AreEqual(0, FSharpDaemon.Driver.main( [| "dummy.exe"; "--eval"; "@TicTacToe.args.txt" |]))
 
@@ -50,7 +50,7 @@ let theRef = Fabulous.DynamicViews.ViewRef<Xamarin.Forms.Label>()
 
     [<Test>]
     member this.TestCallUnitFunction() =
-        ElmishTestCase "TestCallUnitFunction" """
+        ElmishTestCase "TestCallUnitFunction" """ 
 let theRef = FSharp.Core.LanguagePrimitives.GenericZeroDynamic<int>()
        """
 

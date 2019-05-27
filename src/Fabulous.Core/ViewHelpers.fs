@@ -4,6 +4,7 @@ namespace Fabulous.DynamicViews
 open Fabulous.DynamicViews
 open System
 open System.Collections.Generic
+open System.Collections.Concurrent
 open System.Threading
 open Xamarin.Forms
 
@@ -72,7 +73,7 @@ module SimplerHelpers =
 
     /// Debounce multiple calls to a single function
     let debounce<'T> =
-        let memoizations = Dictionary<obj, CancellationTokenSource>(HashIdentity.Structural)
+        let memoizations = ConcurrentDictionary<obj, CancellationTokenSource>(HashIdentity.Structural)
         fun (timeout: int) (fn: 'T -> unit) value ->
             let key = fn.GetType()
             match memoizations.TryGetValue(key) with
@@ -86,10 +87,41 @@ module SimplerHelpers =
                 match cts.IsCancellationRequested with
                 | true -> ()
                 | false ->
-                    memoizations.Remove(key) |> ignore
+                    memoizations.TryRemove(key) |> ignore
                     fn value
                 false // Do not let the timer trigger a second time
             ))
+
+    /// Looks for a view element with the given Automation ID in the view hierarchy.
+    /// This function is not optimized for efficiency and may execute slowly.
+    let rec tryFindViewElement automationId (element:ViewElement) =
+        let elementAutomationId = element.TryGetAttribute<string>("AutomationId")
+        match elementAutomationId with
+        | ValueSome automationIdValue when automationIdValue = automationId -> Some element
+        | _ ->
+            let childElements =
+                match element.TryGetAttribute<ViewElement>("Content") with
+                | ValueSome content -> [| content |]
+                | ValueNone ->
+                    match element.TryGetAttribute<ViewElement[]>("Pages") with
+                    | ValueSome pages -> pages
+                    | ValueNone ->
+                        match element.TryGetAttribute<ViewElement[]>("Children") with
+                        | ValueNone -> [||]
+                        | ValueSome children -> children
+
+            childElements
+            |> Seq.map (fun e -> e |> tryFindViewElement automationId)
+            |> Seq.filter (fun e -> e.IsSome)
+            |> Seq.map (fun e -> e.Value)
+            |> Seq.tryHead
+     
+    /// Looks for a view element with the given Automation ID in the view hierarchy
+    /// Throws an exception if no element is found
+    let findViewElement automationId element =
+        match tryFindViewElement automationId element with
+        | None -> failwithf "No element with automation id '%s' found" automationId
+        | Some viewElement -> viewElement
 
     let ContentsAttribKey = AttributeKey<(obj -> ViewElement)> "Stateful_Contents"
 
