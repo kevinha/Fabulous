@@ -1,3 +1,23 @@
+#### 0.35.0
+
+* [DynamicViews] Added support for Xamarin.Forms 4.0 (https://github.com/fsprojects/Fabulous/pull/416)
+* [Fabulous.Core] Added helpers to support the CmdMsg pattern (https://github.com/fsprojects/Fabulous/pull/418)
+* [Templates] Updated to Xamarin.Essentials 1.0.0 (https://github.com/fsprojects/Fabulous/pull/420)
+
+#### 0.34.0
+
+* [DynamicViews] Added support for Xamarin.Forms 3.6. Partial support for CollectionView, CarouselView and Shell (https://github.com/fsprojects/Fabulous/pull/350 and https://github.com/fsprojects/Fabulous/pull/406)
+* [DynamicViews] Added support for ViewElement in Header and Footer of ListView/ListViewGrouped (https://github.com/fsprojects/Fabulous/pull/408)
+* [DynamicViews] Removed useless CommandParameter properties (https://github.com/fsprojects/Fabulous/pull/386)
+* [DynamicViews] Fixed an issue where an exception was raised when Fabulous tried to reuse a control with a different AutomationId (https://github.com/fsprojects/Fabulous/pull/404)
+* [DynamicViews] Fixed debounce not being thread-safe (https://github.com/fsprojects/Fabulous/pull/394)
+* [DynamicViews] Fixed ImageButton.Command not working as expected (https://github.com/fsprojects/Fabulous/pull/389)
+* [Extensions] Downgraded to Oxyplot 1.0.0 to avoid needing a preview package from a non official nuget feed (https://github.com/fsprojects/Fabulous/pull/387)
+
+#### 0.33.2
+
+* [DynamicViews] Fixed an issue in TableView where the items weren't recycled (https://github.com/fsprojects/Fabulous/pull/364)
+
 #### 0.33.1
 
 * [LiveUpdate] Fixed a bug where any changes throw a NullReferenceException (https://github.com/fsprojects/Fabulous/pull/355)

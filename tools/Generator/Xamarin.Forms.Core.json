@@ -37,6 +37,23 @@
       ]
     },
     {
+      "name": "Xamarin.Forms.NavigableElement",
+      "members": [
+        {
+          "name": "Style",
+          "defaultValue": "null"
+        },
+        {
+          "name": "StyleClass",
+          "defaultValue": "null",
+          "inputType": "obj",
+          "modelType": "System.Collections.Generic.IList<string>",
+          "convToModel": "makeStyleClass",
+          "updateCode": "updateStyleClass"
+        }
+      ]
+    },
+    {
       "name": "Xamarin.Forms.VisualElement",
       "members": [
         {
@@ -94,18 +111,6 @@
         {
           "name": "Scale",
           "defaultValue": "1.0"
-        },
-        {
-          "name": "Style",
-          "defaultValue": "null"
-        },
-        {
-          "name": "StyleClass",
-          "defaultValue": "null",
-          "inputType": "obj",
-          "modelType": "System.Collections.Generic.IList<string>",
-          "convToModel": "makeStyleClass",
-          "updateCode": "updateStyleClass"
         },
         {
           "name": "TranslationX",
@@ -185,6 +190,10 @@
           "defaultValue": "null",
           "inputType": "Xamarin.Forms.FocusEventArgs -> unit",
           "convToModel": "(fun f -> System.EventHandler<Xamarin.Forms.FocusEventArgs>(fun _sender args -> f args))"
+        },
+        {
+          "name": "Visual",
+          "defaultValue": "Xamarin.Forms.VisualMarker.MatchParent"
         }
       ]
     },
@@ -392,70 +401,10 @@
           "defaultValue": "null",
           "inputType": "Xamarin.Forms.ScrolledEventArgs -> unit",
           "convToModel": "(fun f -> System.EventHandler<Xamarin.Forms.ScrolledEventArgs>(fun _sender args -> f args))"
-        }
-      ]
-    },
-    {
-      "name": "Xamarin.Forms.SearchBar",
-      "members": [
-        {
-          "name": "CancelButtonColor",
-          "defaultValue": "Xamarin.Forms.Color.Default"
         },
         {
-          "name": "FontFamily",
-          "defaultValue": "null"
-        },
-        {
-          "name": "FontAttributes",
-          "defaultValue": "Xamarin.Forms.FontAttributes.None"
-        },
-        {
-          "name": "FontSize",
-          "defaultValue": "-1.0",
-          "inputType": "obj",
-          "convToModel": "makeFontSize"
-        },
-        {
-          "name": "HorizontalTextAlignment",
-          "defaultValue": "Xamarin.Forms.TextAlignment.Start"
-        },
-        {
-          "name": "Placeholder",
-          "defaultValue": "null"
-        },
-        {
-          "name": "PlaceholderColor",
-          "defaultValue": "Xamarin.Forms.Color.Default"
-        },
-        {
-          "name": "SearchCommand",
-          "uniqueName": "SearchBarCommand",
-          "inputType": "string -> unit",
-          "modelType": "string -> unit",
-          "updateCode": "(fun _ _ _ -> ())"
-        },
-        {
-          "name": "CanExecute",
-          "uniqueName": "SearchBarCanExecute",
-          "inputType": "bool",
-          "modelType": "bool",
-          "updateCode": "updateCommand prevSearchBarCommandOpt currSearchBarCommandOpt (fun (target: Xamarin.Forms.SearchBar) -> target.Text) (fun (target: Xamarin.Forms.SearchBar) cmd -> target.SearchCommand <- cmd)"
-        },
-        {
-          "name": "Text",
-          "defaultValue": "null"
-        },
-        {
-          "name": "TextColor",
-          "defaultValue": "Xamarin.Forms.Color.Default"
-        },
-        {
-          "name": "TextChanged",
-          "uniqueName": "SearchBarTextChanged",
-          "defaultValue": "null",
-          "inputType": "Xamarin.Forms.TextChangedEventArgs -> unit",
-          "convToModel": "(fun f -> System.EventHandler<Xamarin.Forms.TextChangedEventArgs>(fun _sender args -> f args))"
+          "name": "LayoutAreaOverride",
+          "defaultValue": "Xamarin.Forms.Rectangle.Zero"
         }
       ]
     },
@@ -489,10 +438,6 @@
           "defaultValue": "-1.0"
         },
         {
-          "name": "CommandParameter",
-          "defaultValue": "null"
-        },
-        {
           "name": "ContentLayout",
           "defaultValue": "null"
         },
@@ -524,6 +469,13 @@
           "defaultValue": "null"
         },
         {
+          "name": "ImageSource",
+          "inputType": "obj",
+          "modelType": "obj",
+          "convToValue": "makeImageSource",
+          "defaultValue": "null"
+        },
+        {
           "name": "TextColor",
           "defaultValue": "Xamarin.Forms.Color.Default"
         },
@@ -552,6 +504,25 @@
           "defaultValue": "null",
           "inputType": "Xamarin.Forms.ValueChangedEventArgs -> unit",
           "convToModel": "(fun f -> System.EventHandler<Xamarin.Forms.ValueChangedEventArgs>(fun _sender args -> f args))"
+        },
+        {
+          "name": "DragCompleted",
+          "defaultValue": "null",
+          "inputType": "unit -> unit",
+          "convToModel": "makeCommand"
+        },
+        {
+          "name": "DragStarted",
+          "defaultValue": "null",
+          "inputType": "unit -> unit",
+          "convToModel": "makeCommand"
+        },
+        {
+          "name": "ThumbImageSource",
+          "inputType": "obj",
+          "modelType": "obj",
+          "convToValue": "makeImageSource",
+          "defaultValue": "null"
         }
       ]
     },
@@ -629,6 +600,10 @@
           "defaultValue": "null",
           "inputType": "Xamarin.Forms.ToggledEventArgs -> unit",
           "convToModel": "(fun f -> System.EventHandler<Xamarin.Forms.ToggledEventArgs>(fun _sender args -> f args))"
+        },
+        {
+          "name": "OnColor",
+          "defaultValue": "Xamarin.Forms.Color.Default"
         }
       ]
     },
@@ -961,6 +936,10 @@
           "defaultValue": "null"
         },
         {
+          "name": "TitleColor",
+          "defaultValue": "Xamarin.Forms.Color.Default"
+        },
+        {
           "name": "TextColor",
           "defaultValue": "Xamarin.Forms.Color.Default"
         },
@@ -1020,9 +999,9 @@
         {
           "name": "Command",
           "uniqueName": "ImageButtonCommand",
+          "defaultValue": "null",
           "inputType": "unit -> unit",
-          "modelType": "unit -> unit",
-          "updateCode": "(fun _ _ _ -> ())"
+          "convToModel": "makeCommand"
         },
         {
           "name": "Source",
@@ -1083,6 +1062,76 @@
         {
           "name": "Keyboard",
           "defaultValue": "Xamarin.Forms.Keyboard.Default"
+        },
+        {
+          "name": "IsReadOnly",
+          "defaultValue": "false",
+          "inputType": "bool",
+          "modelType": "bool"
+        }
+      ]
+    },
+    {
+      "name": "Xamarin.Forms.SearchBar",
+      "members": [
+        {
+          "name": "CancelButtonColor",
+          "defaultValue": "Xamarin.Forms.Color.Default"
+        },
+        {
+          "name": "FontFamily",
+          "defaultValue": "null"
+        },
+        {
+          "name": "FontAttributes",
+          "defaultValue": "Xamarin.Forms.FontAttributes.None"
+        },
+        {
+          "name": "FontSize",
+          "defaultValue": "-1.0",
+          "inputType": "obj",
+          "convToModel": "makeFontSize"
+        },
+        {
+          "name": "HorizontalTextAlignment",
+          "defaultValue": "Xamarin.Forms.TextAlignment.Start"
+        },
+        {
+          "name": "Placeholder",
+          "defaultValue": "null"
+        },
+        {
+          "name": "PlaceholderColor",
+          "defaultValue": "Xamarin.Forms.Color.Default"
+        },
+        {
+          "name": "SearchCommand",
+          "uniqueName": "SearchBarCommand",
+          "inputType": "string -> unit",
+          "modelType": "string -> unit",
+          "updateCode": "(fun _ _ _ -> ())"
+        },
+        {
+          "name": "CanExecute",
+          "uniqueName": "SearchBarCanExecute",
+          "inputType": "bool",
+          "modelType": "bool",
+          "updateCode": "updateCommand prevSearchBarCommandOpt currSearchBarCommandOpt (fun (target: Xamarin.Forms.SearchBar) -> target.Text) (fun (target: Xamarin.Forms.SearchBar) cmd -> target.SearchCommand <- cmd)"
+        },
+        {
+          "name": "Text",
+          "defaultValue": "null"
+        },
+        {
+          "name": "TextColor",
+          "defaultValue": "Xamarin.Forms.Color.Default"
+        },
+        {
+          "name": "TextChanged",
+          "uniqueName": "SearchBarTextChanged",
+          "defaultValue": "null",
+          "inputType": "Xamarin.Forms.TextChangedEventArgs -> unit",
+          "convToModel": "(fun f -> System.EventHandler<Xamarin.Forms.TextChangedEventArgs>(fun _sender args -> f args))"
         }
       ]
     },
@@ -1135,6 +1184,12 @@
         {
           "name": "PlaceholderColor",
           "defaultValue": "Xamarin.Forms.Color.Default"
+        },
+        {
+          "name": "IsTextPredictionEnabled",
+          "defaultValue": "false",
+          "inputType": "bool",
+          "modelType": "bool"
         }
       ]
     },
@@ -1507,6 +1562,20 @@
           "defaultValue": "null",
           "inputType": "unit -> unit",
           "convToModel": "(fun f -> System.EventHandler(fun _sender _args -> f ()))"
+        },
+        {
+          "name": "BackgroundImageSource",
+          "inputType": "obj",
+          "modelType": "obj",
+          "convToValue": "makeImageSource",
+          "defaultValue": "null"
+        },
+        {
+          "name": "IconImageSource",
+          "inputType": "obj",
+          "modelType": "obj",
+          "convToValue": "makeImageSource",
+          "defaultValue": "null"
         }
       ]
     },
@@ -1576,6 +1645,13 @@
               "modelType": "ViewElement",
               "updateCode": "updatePageTitleView",
               "defaultValue": "null"
+            },
+            {
+              "name": "TitleIconImageSource",
+              "inputType": "obj",
+              "modelType": "obj",
+              "convToValue": "makeImageSource",
+              "defaultValue": "null"
             }
           ]
         },
@@ -1639,6 +1715,14 @@
           "defaultValue": "null",
           "inputType": "int option -> unit",
           "convToModel": "makeCurrentPageChanged<Xamarin.Forms.Page>"
+        },
+        {
+          "name": "SelectedTabColor",
+          "defaultValue": "Xamarin.Forms.Color.Default"
+        },
+        {
+          "name": "UnselectedTabColor",
+          "defaultValue": "Xamarin.Forms.Color.Default"
         }
       ]
     },
@@ -1705,10 +1789,6 @@
           "convToModel": "makeCommand"
         },
         {
-          "name": "CommandParameter",
-          "defaultValue": "null"
-        },
-        {
           "name": "Icon",
           "inputType": "string",
           "modelType": "string",
@@ -1722,6 +1802,13 @@
           "convToValue": "makeAccelerator",
           "defaultValue": "null",
           "updateCode": "updateAccelerator"
+        },
+        {
+          "name": "IconImageSource",
+          "inputType": "obj",
+          "modelType": "obj",
+          "convToValue": "makeImageSource",
+          "defaultValue": "null"
         }
       ]
     },
@@ -1759,10 +1846,6 @@
           "inputType": "bool",
           "modelType": "bool",
           "updateCode": "updateCommand prevTextCellCommandOpt currTextCellCommandOpt (fun _target -> ()) (fun (target: Xamarin.Forms.TextCell) cmd -> target.Command <- cmd)"
-        },
-        {
-          "name": "CommandParameter",
-          "defaultValue": "null"
         }
       ]
     },
@@ -1814,7 +1897,9 @@
         },
         {
           "name": "Footer",
-          "defaultValue": "null"
+          "defaultValue": "null",
+          "inputType": "obj",
+          "convToModel": "makeViewOrString"
         },
         {
           "name": "HasUnevenRows",
@@ -1822,7 +1907,9 @@
         },
         {
           "name": "Header",
-          "defaultValue": "null"
+          "defaultValue": "null",
+          "inputType": "obj",
+          "convToModel": "makeViewOrString"
         },
         {
           "name": "HeaderTemplate",
@@ -1905,6 +1992,18 @@
         {
           "name": "SelectionMode",
           "defaultValue": "Xamarin.Forms.ListViewSelectionMode.Single"
+        },
+        {
+          "name": "HorizontalScrollBarVisibility",
+          "defaultValue": "Xamarin.Forms.ScrollBarVisibility.Default"
+        },
+        {
+          "name": "VerticalScrollBarVisibility",
+          "defaultValue": "Xamarin.Forms.ScrollBarVisibility.Default"
+        },
+        {
+          "name": "RefreshControlColor",
+          "defaultValue": "Xamarin.Forms.Color.Default"
         }
       ]
     },
@@ -1932,7 +2031,9 @@
         },
         {
           "name": "Footer",
-          "defaultValue": "null"
+          "defaultValue": "null",
+          "inputType": "obj",
+          "convToModel": "makeViewOrString"
         },
         {
           "name": "HasUnevenRows",
@@ -1940,7 +2041,9 @@
         },
         {
           "name": "Header",
-          "defaultValue": "null"
+          "defaultValue": "null",
+          "inputType": "obj",
+          "convToModel": "makeViewOrString"
         },
         {
           "name": "IsPullToRefreshEnabled",
@@ -2014,6 +2117,555 @@
           "defaultValue": "Xamarin.Forms.ListViewSelectionMode.Single"
         }
       ]
+    },
+    {
+      "name": "Xamarin.Forms.BackButtonBehavior",
+      "members": [
+        {
+          "name": "TextOverride",
+          "defaultValue": "null"
+        },
+        {
+          "name": "Command",
+          "defaultValue": "null",
+          "inputType": "unit -> unit",
+          "convToModel": "makeCommand"
+        },
+        {
+          "name": "CommandParameter",
+          "defaultValue": "null"
+        },
+        {
+          "name": "IconOverride",
+          "inputType": "string",
+          "modelType": "string",
+          "convToValue": "makeFileImageSource",
+          "defaultValue": "null"
+        },
+        {
+          "name": "IsEnabled",
+          "inputType": "bool",
+          "modelType": "bool",
+          "defaultValue": "true"
+        }
+      ]
+    },
+    {
+      "name": "Xamarin.Forms.GridItemsLayout",
+      "members": [
+        {
+          "name": "Span",
+          "defaultValue": "0",
+          "modelType": "int",
+          "inputType": "int"
+        }
+      ]
+    },
+    {
+      "name": "Xamarin.Forms.ItemsView",
+      "members": [
+        {
+          "name": "EmptyView",
+          "defaultValue": "null"
+        },
+        {
+          "name": "ItemsLayout",
+          "defaultValue": "null"
+        },
+        {
+          "name": "ItemsSource",
+          "defaultValue": "null"
+        },
+        {
+          "name": "ItemSizingStrategy",
+          "defaultValue": "Xamarin.Forms.ItemSizingStrategy.MeasureAllItems"
+        },
+        {
+          "name": "ScrollToRequested",
+          "defaultValue": "null",
+          "inputType": "Xamarin.Forms.ScrollToRequestEventArgs -> unit",
+          "convToModel": "(fun f -> System.EventHandler<Xamarin.Forms.ScrollToRequestEventArgs>(fun _sender args -> f args))"
+        },
+        {
+          "name": "ScrollTo",
+          "uniqueName": "iScrollTo",
+          "inputType": "obj * obj * Xamarin.Forms.ScrollToPosition * Fabulous.DynamicViews.AnimationKind",
+          "modelType": "obj * obj * Xamarin.Forms.ScrollToPosition * Fabulous.DynamicViews.AnimationKind",
+          "updateCode": "(fun _ curr target -> triggerScrollTo curr target)"
+        }
+      ]
+    },
+    {
+      "name": "Xamarin.Forms.SearchHandler",
+      "members": [
+        {
+          "name": "ClearIcon",
+          "inputType": "string",
+          "modelType": "string",
+          "convToValue": "makeImageSource",
+          "defaultValue": "null"
+        },
+        {
+          "name": "ClearIconHelpText",
+          "defaultValue": "null",
+          "modelType": "string",
+          "inputType": "string"
+        },
+        {
+          "name": "ClearIconName",
+          "defaultValue": "null",
+          "modelType": "string",
+          "inputType": "string"
+        },
+        {
+          "name": "ClearPlaceholderCommand",
+          "defaultValue": "null",
+          "inputType": "unit -> unit",
+          "convToModel": "makeCommand"
+        },
+        {
+          "name": "ClearPlaceholderCommandParameter",
+          "defaultValue": "null"
+        },
+        {
+          "name": "ClearPlaceholderEnabled",
+          "inputType": "bool",
+          "modelType": "bool",
+          "defaultValue": "true"
+        },
+        {
+          "name": "ClearPlaceholderHelpText",
+          "defaultValue": "null",
+          "modelType": "string",
+          "inputType": "string"
+        },
+        {
+          "name": "ClearPlaceholderIcon",
+          "inputType": "string",
+          "modelType": "string",
+          "convToValue": "makeImageSource",
+          "defaultValue": "null"
+        },
+        {
+          "name": "ClearPlaceholderName",
+          "defaultValue": "null",
+          "modelType": "string",
+          "inputType": "string"
+        },
+        {
+          "name": "Command",
+          "defaultValue": "null",
+          "inputType": "unit -> unit",
+          "convToModel": "makeCommand"
+        },
+        {
+          "name": "CommandParameter",
+          "defaultValue": "null"
+        },
+        {
+          "name": "DisplayMemberName",
+          "defaultValue": "null",
+          "modelType": "string",
+          "inputType": "string"
+        },
+        {
+          "name": "IsSearchEnabled",
+          "defaultValue": "true"
+        },
+        {
+          "name": "Placeholder",
+          "defaultValue": "null",
+          "modelType": "string",
+          "inputType": "string"
+        },
+        {
+          "name": "Query",
+          "defaultValue": "null",
+          "modelType": "string",
+          "inputType": "string"
+        },
+        {
+          "name": "QueryIcon",
+          "inputType": "string",
+          "modelType": "string",
+          "convToValue": "makeImageSource",
+          "defaultValue": "null"
+        },
+        {
+          "name": "QueryIconHelpText",
+          "defaultValue": "null",
+          "modelType": "string",
+          "inputType": "string"
+        },
+        {
+          "name": "QueryIconName",
+          "defaultValue": "null",
+          "modelType": "string",
+          "inputType": "string"
+        },
+        {
+          "name": "SearchBoxVisibility",
+          "defaultValue": "Xamarin.Forms.SearchBoxVisibility.Expanded"
+        },
+        {
+          "name": "ShowsResults",
+          "defaultValue": "true",
+          "inputType": "bool",
+          "modelType": "bool"
+        },
+        {
+          "name": "ItemsSource",
+          "defaultValue": "null"
+        },
+        {
+          "name": "BackgroundColor",
+          "defaultValue": "Xamarin.Forms.Color.Default"
+        },
+        {
+          "name": "CancelButtonColor",
+          "defaultValue": "Xamarin.Forms.Color.Default"
+        },
+        {
+          "name": "FontAttributes",
+          "defaultValue": "Xamarin.Forms.FontAttributes.None"
+        },
+        {
+          "name": "FontFamily",
+          "defaultValue": "null"
+        },
+        {
+          "name": "FontSize",
+          "defaultValue": "-1.0",
+          "inputType": "obj",
+          "convToModel": "makeFontSize"
+        },
+        {
+          "name": "HorizontalTextAlignment",
+          "defaultValue": "Xamarin.Forms.TextAlignment.Start"
+        },
+        {
+          "name": "IsFocused",
+          "defaultValue": "false",
+          "modelType": "bool",
+          "inputType": "bool",
+          "updateCode": "updateIsFocused"
+        },
+        {
+          "name": "Keyboard",
+          "defaultValue": "Xamarin.Forms.Keyboard.Default"
+        },
+        {
+          "name": "PlaceholderColor",
+          "defaultValue": "Xamarin.Forms.Color.Default"
+        },
+        {
+          "name": "TextColor",
+          "defaultValue": "Xamarin.Forms.Color.Default"
+        },
+        {
+          "name": "Unfocused",
+          "uniqueName": "SearchHandlerUnfocused",
+          "defaultValue": "null",
+          "inputType": "unit -> unit",
+          "convToModel": "(fun f -> System.EventHandler(fun _sender _args -> f()))"
+        },
+        {
+          "name": "Focused",
+          "uniqueName": "SearchHandlerFocused",
+          "defaultValue": "null",
+          "inputType": "unit -> unit",
+          "convToModel": "(fun f -> System.EventHandler(fun _sender _args -> f()))"
+        },
+        {
+          "name": "FocusChangeRequested",
+          "defaultValue": "null",
+          "inputType": "Xamarin.Forms.VisualElement.FocusRequestArgs -> unit",
+          "convToModel": "(fun f -> System.EventHandler<Xamarin.Forms.VisualElement.FocusRequestArgs>(fun _sender args -> f args))"
+        },
+        {
+          "name": "SelectedItem",
+          "defaultValue": "null",
+          "inputType": "obj",
+          "modelType": "obj",
+          "updateCode": "updateSelectedItem"
+        }
+      ]
+    },
+    {
+      "name": "Xamarin.Forms.BaseShellItem",
+      "members": [
+        {
+          "name": "FlyoutIcon",
+          "inputType": "obj",
+          "modelType": "obj",
+          "convToValue": "makeImageSource",
+          "defaultValue": "null"
+        },
+        {
+          "name": "Icon",
+          "uniqueName": "BaseShellItemIcon",
+          "inputType": "obj",
+          "modelType": "obj",
+          "convToValue": "makeImageSource",
+          "defaultValue": "null"
+        },
+        {
+          "name": "IsEnabled",
+          "defaultValue": "true"
+        },
+        {
+          "name": "IsTabStop",
+          "defaultValue": "true"
+        },
+        {
+          "name": "Route",
+          "defaultValue": "null"
+        },
+        {
+          "name": "TabIndex",
+          "defaultValue": "0"
+        },
+        {
+          "name": "Title",
+          "defaultValue": "null"
+        },
+        {
+          "name": "IsChecked",
+          "defaultValue": "null",
+          "inputType": "bool",
+          "modelType": "bool",
+          "updateCode": "updateIsCecked"
+        }
+      ]
+    },
+    {
+      "name": "Xamarin.Forms.Shell",
+      "members": [
+        {
+          "name": "Items",
+          "defaultValue": "null",
+          "inputType": "seq<ViewElement>",
+          "modelType": "seq<ViewElement>",
+          "updateCode": "updateShellItems"
+        },
+        {
+          "name": "CurrentItem",
+          "defaultValue": "null"
+        },
+        {
+          "name": "FlyoutBackgroundColor",
+          "defaultValue": "Xamarin.Forms.Color.Default"
+        },
+        {
+          "name": "FlyoutBehavior",
+          "defaultValue": "Xamarin.Forms.FlyoutBehavior.Flyout"
+        },
+        {
+          "name": "FlyoutHeader",
+          "defaultValue": "null"
+        },
+        {
+          "name": "FlyoutHeaderBehavior",
+          "defaultValue": "Xamarin.Forms.FlyoutHeaderBehavior.Default"
+        },
+        {
+          "name": "FlyoutIcon",
+          "inputType": "obj",
+          "modelType": "obj",
+          "convToValue": "makeImageSource",
+          "defaultValue": "null"
+        },
+        {
+          "name": "FlyoutIsPresented",
+          "defaultValue": "false"
+        },
+        {
+          "name": "Navigated",
+          "uniqueName": "OnNavigated",
+          "defaultValue": "null",
+          "inputType": "Xamarin.Forms.ShellNavigatedEventArgs -> unit",
+          "convToModel": "(fun f -> System.EventHandler<Xamarin.Forms.ShellNavigatedEventArgs>(fun _sender args -> f args))"
+        },
+        {
+          "name": "Navigating",
+          "uniqueName": "OnNavigating",
+          "defaultValue": "null",
+          "inputType": "Xamarin.Forms.ShellNavigatingEventArgs -> unit",
+          "convToModel": "(fun f -> System.EventHandler<Xamarin.Forms.ShellNavigatingEventArgs>(fun _sender args -> f args))"
+        },
+        {
+          "name": "GoToAsync",
+          "inputType": "Xamarin.Forms.ShellNavigationState * Fabulous.DynamicViews.AnimationKind",
+          "modelType": "Xamarin.Forms.ShellNavigationState * Fabulous.DynamicViews.AnimationKind",
+          "updateCode": "(fun _ curr target -> triggerGoToAsync curr target)"
+        }
+      ]
+    },
+    {
+      "name": "Xamarin.Forms.ShellGroupItem",
+      "members": [
+        {
+          "name": "FlyoutDisplayOptions",
+          "defaultValue": "Xamarin.Forms.FlyoutDisplayOptions.AsSingleItem"
+        }
+      ]
+    },
+    {
+      "name": "Xamarin.Forms.SelectableItemsView",
+      "members": [
+        {
+          "name": "SelectedItem",
+          "defaultValue": "null"
+        },
+        {
+          "name": "SelectedItems",
+          "defaultValue": "null",
+          "inputType": "seq<ViewElement>",
+          "modelType": "seq<ViewElement>",
+          "updateCode": "updateSelectedItems"
+        },
+        {
+          "name": "SelectionChangedCommand",
+          "defaultValue": "null",
+          "inputType": "unit -> unit",
+          "convToModel": "makeCommand"
+        },
+        {
+          "name": "SelectionChangedCommandParameter",
+          "defaultValue": "null"
+        },
+        {
+          "name": "SelectionMode",
+          "uniqueName": "selectableItemsMode",
+          "defaultValue": "Xamarin.Forms.SelectionMode.None",
+          "inputType": "Xamarin.Forms.SelectionMode",
+          "modelType": "Xamarin.Forms.SelectionMode"
+        },
+        {
+          "name": "SelectionChanged",
+          "defaultValue": "null",
+          "inputType": "Xamarin.Forms.SelectionChangedEventArgs -> unit",
+          "convToModel": "(fun f -> System.EventHandler<Xamarin.Forms.SelectionChangedEventArgs>(fun _sender args -> f args))"
+        }
+      ]
+    },
+    {
+      "name": "Xamarin.Forms.ShellContent",
+      "members": [
+        {
+          "name": "Content",
+          "defaultValue": "null",
+          "inputType": "ViewElement"
+        },
+        {
+          "name": "MenuItems",
+          "defaultValue": "null",
+          "inputType": "seq<ViewElement>",
+          "modelType": "seq<ViewElement>",
+          "updateCode": "updateMenuItemsShellContent"
+        }
+      ]
+    },
+    {
+      "name": "Xamarin.Forms.ShellItem",
+      "members": [
+        {
+          "name": "CurrentItem",
+          "defaultValue": "null",
+          "inputType": "ViewElement",
+          "modelType": "ViewElement"
+        },
+        {
+          "name": "Items",
+          "defaultValue": "null",
+          "inputType": "seq<ViewElement>",
+          "modelType": "seq<ViewElement>",
+          "updateCode": "updateShellItemItems"
+        }
+      ]
+    },
+    {
+      "name": "Xamarin.Forms.ShellSection",
+      "members": [
+        {
+          "name": "CurrentItem",
+          "defaultValue": "null"
+        },
+        {
+          "name": "Items",
+          "defaultValue": "null",
+          "inputType": "seq<ViewElement>",
+          "modelType": "seq<ViewElement>",
+          "updateCode": "updateShellSectionItems"
+        }
+      ]
+    },
+    {
+      "name": "Xamarin.Forms.CarouselView",
+      "customType": "Fabulous.DynamicViews.CustomCarouselView",
+      "members": [
+        {
+          "name": "ItemsSource",
+          "uniqueName": "CarouselViewItems",
+          "shortName": "items",
+          "inputType": "seq<ViewElement>",
+          "modelType": "seq<ViewElement>",
+          "updateCode": "updateCarouselViewItems"
+        }
+      ]
+    },
+    {
+      "name": "Xamarin.Forms.CollectionView",
+      "customType": "Fabulous.DynamicViews.CustomCollectionListView",
+      "members": [
+        {
+          "name": "ItemsSource",
+          "uniqueName": "CollectionViewItems",
+          "shortName": "items",
+          "inputType": "seq<ViewElement>",
+          "modelType": "seq<ViewElement>",
+          "updateCode": "updateCollectionViewItems"
+        }
+      ]
+    },
+    {
+      "name": "Xamarin.Forms.FontImageSource",
+      "members": [
+        {
+          "name": "Color",
+          "defaultValue": "Xamarin.Forms.Color.Default"
+        },
+        {
+          "name": "FontFamily",
+          "inputType": "string",
+          "modelType": "string",
+          "defaultValue": "null"
+        },
+        {
+          "name": "Glyph",
+          "inputType": "string",
+          "modelType": "string",
+          "defaultValue": "null"
+        },
+        {
+          "name": "Size",
+          "inputType": "float",
+          "modelType": "float",
+          "defaultValue": "30."
+        }
+      ]
+    },
+    {
+      "name": "Xamarin.Forms.FlyoutItem",
+      "members": []
+    },
+    {
+      "name": "Xamarin.Forms.Tab",
+      "members": []
+    },
+    {
+      "name": "Xamarin.Forms.TabBar",
+      "members": []
     }
   ]
 }
