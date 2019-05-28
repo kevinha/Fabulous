@@ -127,7 +127,7 @@ type HttpServer(?port) =
             listener.Prefixes.Add (url)
             try 
                 listener.Start ()
-
+                let serializer = Newtonsoft.Json.JsonSerializer();
                 while true do
                     printfn "LiveUpdate: listening on url = %s" url
                     let! c = listener.GetContextAsync () |> Async.AwaitTask
@@ -143,11 +143,11 @@ type HttpServer(?port) =
                                 //    let resp = switch ()
                                 //    return serializer.PickleToString resp
                                 if (path = "/update") then
-                                    let reader = new StreamReader (c.Request.InputStream, Encoding.UTF8)
-                                    let! requestText = reader.ReadToEndAsync () |> Async.AwaitTask
-                                    let req = Newtonsoft.Json.JsonConvert.DeserializeObject<(string * DFile)[]>(requestText)
-                                    //let req = serializer.UnPickleOfString<DFile>(requestText)
+                                    use reader = new StreamReader (c.Request.InputStream, Encoding.UTF8)
+                                    use json = new Newtonsoft.Json.JsonTextReader(reader)
+                                    let req = serializer.Deserialize<(string * DFile)[]>(json)
                                     let resp = switchD req
+                                    System.GC.Collect()
                                     return Newtonsoft.Json.JsonConvert.SerializeObject resp
                                 else
                                     return """
