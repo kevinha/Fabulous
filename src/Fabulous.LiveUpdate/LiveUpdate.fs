@@ -127,7 +127,6 @@ type HttpServer(?port) =
             listener.Prefixes.Add (url)
             try 
                 listener.Start ()
-                let serializer = Newtonsoft.Json.JsonSerializer();
                 while true do
                     printfn "LiveUpdate: listening on url = %s" url
                     let! c = listener.GetContextAsync () |> Async.AwaitTask
@@ -145,9 +144,9 @@ type HttpServer(?port) =
                                 if (path = "/update") then
                                     use reader = new StreamReader (c.Request.InputStream, Encoding.UTF8)
                                     use json = new Newtonsoft.Json.JsonTextReader(reader)
+                                    let serializer = Newtonsoft.Json.JsonSerializer();
                                     let req = serializer.Deserialize<(string * DFile)[]>(json)
                                     let resp = switchD req
-                                    System.GC.Collect()
                                     return Newtonsoft.Json.JsonConvert.SerializeObject resp
                                 else
                                     return """
@@ -183,6 +182,7 @@ type HttpServer(?port) =
                         resp.StatusCode <- 500
                         resp.ContentLength64 <- bytes.LongLength
                         do! c.Response.OutputStream.WriteAsync (bytes, 0, bytes.Length) |> Async.AwaitTask
+                    //System.GC.Collect()
             with :? HttpListenerException as ex -> 
                 printfn "couldn't start listener %s" (ex.ToString())
         } |> Async.Start
@@ -278,7 +278,7 @@ module Extensions =
                                     printfn "***   [x] it had no parameters (good!)"
                                     printfn "***   [x] the declaration had the right type"
                                     printfn "***   [x] changed the running program"
-                                    Some { Quacked = "LiveUpdate quacked!" }
+                                    Some { Quacked = "LiveUpdate quacked" }
                         
                                 | p -> 
                                     printfn "*** LiveUpdate failure:"
