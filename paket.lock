@@ -1100,7 +1100,7 @@ GITHUB
     src/ProjectCracker.fs (7bc5e17b32d848024e4635553eda3fc0afbb5156)
     tests/PortaCodeTests.fs (7bc5e17b32d848024e4635553eda3fc0afbb5156)
   remote: kevinha/FSharp.Compiler.PortaCode
-    src/ProcessCommandLine.fs (a195f45bc74c8f3023e80f1c3b1624a471da96d6)
+    src/ProcessCommandLine.fs (397ddeb49f4967e956306aeeb0d7f76b2595b4cf)
     src/Watcher.fs (a195f45bc74c8f3023e80f1c3b1624a471da96d6)
 GROUP wpfapp
 RESTRICTION: == net472
